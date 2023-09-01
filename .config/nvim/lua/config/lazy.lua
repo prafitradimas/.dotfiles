@@ -11,6 +11,8 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
+vim.g.mapleader = " "
+
 require("lazy").setup({
     spec = {
         { "LazyVim/LazyVim", import = "lazyvim.plugins" },
@@ -20,15 +22,16 @@ require("lazy").setup({
         lazy = false,
         version = false,
     },
-    install = { colorscheme = { import = "plugins.colorscheme" } },
-    checker = { enabled = true },
+    install = { colorscheme = { "tokyonight" } },
+    checker = { enabled = true }, -- automatically check for plugin updates
     performance = {
         rtp = {
+            -- disable some rtp plugins
             disabled_plugins = {
                 "gzip",
-                "matchit",
-                "matchparen",
-                "netrwPlugin",
+                -- "matchit",
+                -- "matchparen",
+                -- "netrwPlugin",
                 "tarPlugin",
                 "tohtml",
                 "tutor",
