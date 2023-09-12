@@ -15,14 +15,25 @@ vim.g.mapleader = " "
 
 require("lazy").setup({
     spec = {
-        { "LazyVim/LazyVim", import = "lazyvim.plugins" },
+        {
+            "LazyVim/LazyVim",
+            import = "lazyvim.plugins",
+            opts = {
+                colorscheme = "tokyonight-night",
+            },
+        },
         { import = "plugins" },
     },
     defaults = {
         lazy = false,
         version = false,
     },
-    install = { colorscheme = { "tokyonight" } },
+    install = {
+        colorscheme = {
+            "tokyonight",
+            "catppuccin",
+        },
+    },
     checker = { enabled = true }, -- automatically check for plugin updates
     performance = {
         rtp = {

@@ -50,7 +50,7 @@ HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE="$HOME/.zsh_history"
 setopt appendhistory
-setopt INC_APPEND_HISTORY  
+setopt INC_APPEND_HISTORY
 setopt SHARE_HISTORY
 
 zstyle ':completion:*' auto-description 'specify: %d'
@@ -77,6 +77,7 @@ zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 
 export PATH="$HOME/neovim/build/bin:$PATH"
+export PATH="$HOME/goroot/bin:$PATH"
 
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
