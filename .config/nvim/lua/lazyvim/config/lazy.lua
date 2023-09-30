@@ -10,6 +10,8 @@ if not vim.loop.fs_stat(lazypath) then
     })
 end
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
+vim.opt.nu = true
+vim.opt.relativenumber = true
 
 vim.g.mapleader = " "
 
@@ -22,7 +24,10 @@ require("lazy").setup({
                 colorscheme = "tokyonight-night",
             },
         },
-        { import = "plugins" },
+        { import = "lazyvim.plugins.extras.lang.go" },
+        { import = "lazyvim.plugins.extras.lang.typescript" },
+        { import = "lazyvim.plugins" },
+        { import = "lazyvim.plugins.lang" },
     },
     defaults = {
         lazy = false,
@@ -31,7 +36,6 @@ require("lazy").setup({
     install = {
         colorscheme = {
             "tokyonight",
-            "catppuccin",
         },
     },
     checker = { enabled = true }, -- automatically check for plugin updates

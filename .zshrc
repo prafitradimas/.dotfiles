@@ -77,7 +77,7 @@ zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 
 export PATH="$HOME/neovim/build/bin:$PATH"
-export PATH="$HOME/goroot/bin:$PATH"
+export PATH="$HOME/Personal/Tools/go/bin:$PATH"
 
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
