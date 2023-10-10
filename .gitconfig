@@ -1,0 +1,12 @@
+[user]
+	name = prafitradimas
+	email = prtrdms@gmail.com
+
+[core]
+	editor = nvim
+[init]
+	defaultBranch = main
+[push]
+	autoSetupRemote = true
+[pull]
+	rebase = true

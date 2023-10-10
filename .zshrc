@@ -3,20 +3,11 @@
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
 
-# Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
+# timestamp shown in the history command output.
 # You can set one of the optional three formats:
 # "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
 HIST_STAMPS="dd/mm/yyyy"
 
-# Uncomment the following line to display red dots whilst waiting for completion.
-# You can also set it to another string to have that shown instead of the default red dots.
-# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
 COMPLETION_WAITING_DOTS="true"
 
 DISABLE_MAGIC_FUNCTIONS="true"
@@ -36,22 +27,20 @@ ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=#9e9e9e,bold'
 ZSH_HIGHLIGHT_STYLES[alias]='fg=magenta,bold'
 ZSH_HIGHLIGHT_STYLES[path]='fg=blue,bold'
 
-# Which plugins would you like to load?
+# Which plugins to load
 # Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
-
+plugins=(git fzf-tab zsh-autosuggestions zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 
-# Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE="$HOME/.zsh_history"
 setopt appendhistory
 setopt INC_APPEND_HISTORY
 setopt SHARE_HISTORY
+
+autoload -Uz compinit
+compinit
 
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate
@@ -72,13 +61,25 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
-##########################################################
+if command -v fzf &> /dev/null && command -v fdfind &> /dev/null; then
+    # To enable fzf key-bindings
+    # Refer to the package documentation for more information. (e.g. `apt show fzf`)
+    source /usr/share/doc/fzf/examples/key-bindings.zsh
+    source /usr/share/doc/fzf/examples/completion.zsh
 
+    export FZF_DEFAULT_COMMAND="fdfind --type f" # Override fzf default command
+    # Preview file content using bat (https://github.com/sharkdp/bat)
+    export FZF_DEFAULT_OPTS="--preview 'batcat --color=always {}'"
+    # Add colorscheme to fzf
+    export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS" --color fg:-1,bg:-1,hl:33,fg+:254,bg+:235,hl+:33 --color info:136,prompt:136,pointer:230,marker:230,spinner:136"
+    # cd into selected dir 
+    export FZF_ALT_C_OPTS="--preview 'tree -C {}'" 
+    export FZF_CTRL_T_OPTS="--preview 'batcat -n --color=always {}' --bind 'ctrl-/:change-preview-window(down|hidden|)'"
+    # CTRL-/ to toggle small preview window to see the full command
+    export FZF_CTRL_R_OPTS=" --preview 'echo {}' --preview-window up:3:hidden:wrap --bind 'ctrl-/:toggle-preview' --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --color header:italic --header 'Press CTRL-Y to copy command into clipboard'"
+fi
 
-
-export PATH="$HOME/neovim/build/bin:$PATH"
 export PATH="$HOME/Personal/Tools/go/bin:$PATH"
-
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
