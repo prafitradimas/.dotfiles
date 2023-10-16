@@ -17,8 +17,8 @@ M.dap = {
       "Add breakpoint at line",
     },
     ["<leader>dus"] = {
-      function ()
-        local widgets = require("dap.ui.widgets")
+      function()
+        local widgets = require "dap.ui.widgets"
         local sidebar = widgets.sidebar(widgets.scopes)
         sidebar.open()
       end,
@@ -31,13 +31,13 @@ M.dap_go = {
   plugin = true,
   n = {
     ["<leader>dgt"] = {
-      function ()
+      function()
         require("dap-go").debug_test()
       end,
       "Debug go test",
     },
     ["<leader>dgl"] = {
-      function ()
+      function()
         require("dap-go").debug_last()
       end,
       "Debug last go test",
@@ -48,13 +48,9 @@ M.dap_go = {
 M.gopher = {
   plugin = true,
   n = {
-    ["<leader>gsj"] = {
+    ["<leader>cst"] = {
       "<CMD> GoTagAdd json <CR>",
       "Add json struct tags",
-    },
-    ["<leader>gsy"] = {
-      "<CMD> GoTagAdd yaml <CR>",
-      "Add yaml struct tags",
     },
   },
 }
