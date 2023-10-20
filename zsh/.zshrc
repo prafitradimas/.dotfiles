@@ -34,7 +34,7 @@ source $ZSH/oh-my-zsh.sh
 
 HISTSIZE=10000
 SAVEHIST=10000
-HISTFILE="$HOME/.zsh_history"
+HISTFILE="$ZDOTDIR/.zsh_history"
 setopt appendhistory
 setopt INC_APPEND_HISTORY
 setopt SHARE_HISTORY

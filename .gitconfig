@@ -10,3 +10,7 @@
 	autoSetupRemote = true
 [pull]
 	rebase = true
+[credential]
+	credentialStore = cache
+	helper = store --file ~/.git-credentials
+	gitHubAuthModes = browser
