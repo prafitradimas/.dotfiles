@@ -7,7 +7,12 @@ local plugins = {
     "williamboman/mason.nvim",
     opts = {
       ensure_installed = {
+        "lua-language-server",
+        "stylua",
         "gopls",
+        "eslint-lsp",
+        "prettier",
+        "typescript-language-server",
       },
     },
   },
@@ -48,6 +53,20 @@ local plugins = {
     end,
     build = function()
       vim.cmd [[silent! GoInstallDeps]]
+    end,
+  },
+  {
+    "mhartington/formatter.nvim",
+    event = "VeryLazy",
+    config = function()
+      require "custom.configs.formatter"
+    end,
+  },
+  {
+    "mfussenegger/nvim-lint",
+    event = "VeryLazy",
+    config = function()
+      require "custom.configs.lint"
     end,
   },
 }

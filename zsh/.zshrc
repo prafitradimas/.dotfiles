@@ -47,7 +47,7 @@ source $XDG_CONFIG_HOME/fzf/fzf-completion.zsh
 source $XDG_CONFIG_HOME/fzf/fzf-keybindings.zsh
 source $ZDOTDIR/alias.zsh
 
-export PATH="$HOME/Personal/Tools/go/bin:$PATH"
+export PATH="$PATH:/usr/local/go/bin"
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"

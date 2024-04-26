@@ -86,6 +86,17 @@ local default_plugins = {
       require("nvim-treesitter.configs").setup(opts)
     end,
   },
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
+    init = function()
+      require("treesitter-context").setup {
+        enable = true,
+      }
+    end,
+  },
 
   -- git stuff
   {

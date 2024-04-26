@@ -1,9 +1,9 @@
 [user]
 	name = prafitradimas
-	email = prtrdms@gmail.com
+	email = prftrdms@gmail.com
 
 [core]
-	editor = nvim
+	editor = vim
 [init]
 	defaultBranch = main
 [push]
@@ -11,6 +11,5 @@
 [pull]
 	rebase = true
 [credential]
-	credentialStore = cache
-	helper = store --file ~/.git-credentials
+	credentialStore = gpg
 	gitHubAuthModes = browser

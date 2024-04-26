@@ -7,6 +7,7 @@ M.treesitter = {
     "html",
     "css",
     "javascript",
+    "typescript",
     "markdown",
     "markdown_inline",
     "bash",
@@ -31,6 +32,12 @@ M.mason = {
     "goimports-reviser",
     "golines",
     "gomodifytags",
+  },
+}
+
+M.telescope = {
+  n = {
+    ["<leader>fb"] = { "<cmd> Telescope live_grep <CR>", "Live grep" },
   },
 }
 

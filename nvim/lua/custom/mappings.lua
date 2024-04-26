@@ -6,6 +6,14 @@ M.general = {
     ["<C-j>"] = { "<CMD> TmuxNavigateDown <CR>", "window down" },
     ["<C-k>"] = { "<CMD> TmuxNavigateUp <CR>", "window up" },
     ["<C-l>"] = { "<CMD> TmuxNavigateRight <CR>", "window right" },
+    ["<leader>n"] = { "", "" },
+    ["<leader>rn"] = { "", "" },
+  },
+}
+
+M.lsp = {
+  n = {
+    ["<leader>la"] = { "<CMD> lua vim.lsp.buf.code_action()<CR>", "LSP Code Action" },
   },
 }
 
