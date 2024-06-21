@@ -114,20 +114,63 @@ return {
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         tsserver = {
-          filetypes = { 'typescript', 'typescriptreact', 'typescript.tsx' },
-          cmd = { 'typescript-language-server', '--stdio' },
+          enabled = false,
+          -- cmd = { 'typescript-language-server', '--stdio' },
+        },
+        vtsls = {
+          filetypes = { 'typescript', 'typescriptreact', 'typescript.tsx', 'javascript', 'javascriptreact', 'javascript.jsx' },
+          settings = {
+            complete_function_calls = true,
+            vtsls = {
+              enableMoveToFileCodeAction = true,
+              autoUseWorkspaceTsdk = true,
+              experimental = {
+                completion = {
+                  enableServerSideFuzzyMatch = true,
+                },
+              },
+            },
+            typescript = {
+              updateImportsOnFileMove = { enabled = 'always' },
+              suggest = {},
+              inlayHints = {
+                enumMemberValues = { enabled = true },
+                functionLikeReturnType = { enabled = true },
+                parameterNames = { enabled = 'literals' },
+                parameterTypes = { enabled = true },
+                variableTypes = { enabled = true },
+                propertyDeclarationTypes = { enabled = true },
+              },
+            },
+          },
         },
         gopls = {
           cmd = { 'gopls' },
           capabilities = capabilities,
           settings = {
             gopls = {
+              gofumpt = true,
               experimentalPostfixCompletions = true,
+              codelenses = {
+                gc_details = true,
+                regenerate_cgo = true,
+                run_govulncheck = true,
+                test = true,
+                tidy = true,
+                vendor = true,
+                -- upgrade_dependency = true,
+              },
               analyses = {
+                nilness = true,
                 unusedparams = true,
+                unusedwrite = true,
+                useany = true,
                 shadow = true,
               },
               staticcheck = true,
+              usePlaceholders = true,
+              completeUnimported = true,
+              directoryFilters = { '-.git', '-.vscode', '-.idea', '-.vscode-test', '-node_modules' },
             },
           },
           init_options = {
@@ -155,6 +198,10 @@ return {
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
         'gofumpt',
+        'goimports',
+        'gomodifytags',
+        'impl',
+        'delve',
       })
       require('mason-tool-installer').setup({ ensure_installed = ensure_installed })
 
