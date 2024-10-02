@@ -191,17 +191,40 @@ return {
             },
           },
         },
+        intelephense = {
+          filetypes = { 'php', 'blade' },
+          settings = {
+            intelephense = {
+              filetypes = { 'php', 'blade' },
+              files = {
+                associations = { '*.php', '*.blade.php' },
+                maxSize = 5000000,
+              },
+            },
+          },
+        },
       }
 
       require('mason').setup()
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+
+        -- ts
+        'vtsls',
+
+        -- go lang
         'gofumpt',
         'goimports',
         'gomodifytags',
         'impl',
         'delve',
+
+        -- php
+        'intelephense',
+        'blade-formatter',
+        'phpstan',
+        'pint',
       })
       require('mason-tool-installer').setup({ ensure_installed = ensure_installed })
 

@@ -25,10 +25,27 @@ return {
           },
         },
       },
+      {
+        'tzachar/cmp-tabnine',
+        --build = {
+        --  LazyVim.is_win() and 'pwsh -noni .\\install.ps1' or './install.sh',
+        --  ':CmpTabnineHub',
+        --},
+        dependencies = 'hrsh7th/nvim-cmp',
+        opts = {
+          max_lines = 1000,
+          max_num_results = 3,
+          sort = true,
+        },
+        config = function(_, opts)
+          require('cmp_tabnine.config'):setup(opts)
+        end,
+      },
       'saadparwaiz1/cmp_luasnip',
 
       -- Adds other completion capabilities.
       'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
     },
     config = function()
@@ -54,21 +71,12 @@ return {
           ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
           ['<CR>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Select }),
           ['<C-Space>'] = cmp.mapping.complete(),
-          ['<C-L>'] = cmp.mapping(function()
-            if luasnip.expand_or_locally_jumpable() then
-              luasnip.expand_or_jump()
-            end
-          end, { 'i', 's' }),
-          ['<C-H>'] = cmp.mapping(function()
-            if luasnip.locally_jumpable(-1) then
-              luasnip.jump(-1)
-            end
-          end, { 'i', 's' }),
         }),
         sources = {
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
           { name = 'path' },
+          { name = 'cmp_tabnine' },
         },
       })
     end,
