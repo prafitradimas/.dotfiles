@@ -25,22 +25,6 @@ return {
           },
         },
       },
-      {
-        'tzachar/cmp-tabnine',
-        --build = {
-        --  LazyVim.is_win() and 'pwsh -noni .\\install.ps1' or './install.sh',
-        --  ':CmpTabnineHub',
-        --},
-        dependencies = 'hrsh7th/nvim-cmp',
-        opts = {
-          max_lines = 1000,
-          max_num_results = 3,
-          sort = true,
-        },
-        config = function(_, opts)
-          require('cmp_tabnine.config'):setup(opts)
-        end,
-      },
       'saadparwaiz1/cmp_luasnip',
 
       -- Adds other completion capabilities.
@@ -48,11 +32,11 @@ return {
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
     },
-    config = function()
+    config = function(_, opts)
       -- See `:help cmp`
       local cmp = require('cmp')
       local luasnip = require('luasnip')
-      luasnip.config.setup({})
+      luasnip.config.setup(opts)
 
       cmp.setup({
         snippet = {
@@ -73,10 +57,10 @@ return {
           ['<C-Space>'] = cmp.mapping.complete(),
         }),
         sources = {
-          { name = 'nvim_lsp' },
-          { name = 'luasnip' },
-          { name = 'path' },
-          { name = 'cmp_tabnine' },
+          { name = 'path', group_index = 1, priority = 25 },
+          { name = 'luasnip', group_index = 1, priority = 50 },
+          { name = 'nvim_lsp', group_index = 1, priority = 75 },
+          { name = 'copilot', group_index = 1, priority = 100 },
         },
       })
     end,
