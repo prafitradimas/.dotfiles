@@ -1,3 +1,4 @@
 .zcompdump*
 .zhistory
 .zsh_history
+keyring.deb

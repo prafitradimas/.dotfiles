@@ -1,0 +1,18 @@
+configuration{
+    modi: "run,drun,window,combi";
+    combi-modes: [run,drun,window];
+    icon-theme: "Oranchelo";
+    show-icons: true;
+    terminal: "gnome-terminal";
+    drun-display-format: "{icon} {name}";
+    location: 0;
+    disable-history: false;
+    hide-scrollbar: true;
+    display-combi: " 🖥️  All ";
+    display-run: " 🏃  Run ";
+    display-drun: " 🖥️  Desktop ";
+    display-window: " 🪟  Window";
+    sidebar-mode: true;
+}
+
+@theme "catppuccin-mocha"

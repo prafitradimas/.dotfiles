@@ -16,16 +16,16 @@ nmap <leader>wc :action Unsplit<cr>
 nmap <leader>wC :action UnsplitAll<cr>
 
 " file
-nmap <leader>gtf :action GotoFile<cr>
-nmap <leader>gtc :action GotoClass<cr>
-nmap <leader>gts :action GotoSymbol<cr>
+nmap <leader>sf :action GotoFile<cr>
+nmap <leader>gc :action GotoClass<cr>
+nmap <leader>gs :action GotoSymbol<cr>
 nmap <leader>fs :action FileStructurePopup<cr>
 nmap <leader>m :action ToggleBookmark<cr>
 
 " refactor
-nmap <leader>rq :action Refactorings.QuickListPopupAction<cr>
-nmap <leader>rg :action Generate<cr>
-vmap <leader>rm :action ExtractMethod<cr>
+nmap <leader>ca :action Refactorings.QuickListPopupAction<cr>
+" nmap <leader>rg :action Generate<cr>
+" vmap <leader>rm :action ExtractMethod<cr>
 nmap <leader>rn :action RenameElement<cr>
 
 " lines
@@ -33,9 +33,9 @@ vmap J :m '>+1<cr>gv=gv
 vmap K :m '<-2<cr>gv=gv
 
 " error
-nmap <leader>x :action GotoNextError<cr>
-nmap <leader>X :action GotoPreviousError<cr>
-nmap <leader> :action ShowErrorDescription<cr>
+nnoremap ]d :action GotoNextError<cr>
+nnoremap [d :action GotoPreviousError<cr>
+" nmap <leader> :action ShowErrorDescription<cr>
 
 " terminal
 nmap <leader>T :action ActivateTerminalToolWindow<cr>

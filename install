@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+
+sudo apt-get -y update
+
+if [ -x "$(command -v git)" ]; then
+    sudo apt-get -y install git
+fi
+
+if [ -x "$(command -v curl)" ]; then
+    sudo apt-get -y install curl
+fi
+
+if [ -x "$(command -v fzf)" ]; then
+    sudo apt-get -y install fzf
+fi
+
+if [ -x "$(command -v ripgrep)" ]; then
+    sudo apt-get -y install ripgrep
+fi
+
+###############################################################################
+#                                  SCRIPT START                               #
+###############################################################################
+
+# cd into where the script is located
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+grep=""
+dry_run="0"
+
+while [[ $# -gt 0 ]]; do
+    if [[ "$1" == "--dry" ]]; then
+        dry_run="1"
+    else
+        grep="$1"
+    fi
+    shift
+done
+
+log() {
+    local message="$1"
+    if [[ "$dry_run" == "1" ]]; then
+        echo "[DRY_RUN]: $message"
+    else
+        echo "$message"
+    fi
+}
+
+installer_files=$(find "$script_dir/installer" -mindepth 1 -maxdepth 1 -type f -executable)
+
+while IFS= read -r file; do
+    # Check if the basename matches the grep filter
+    if [[ "$(basename "$file")" != *"$grep"* ]]; then
+        log "grep \"$grep\" filtered out $file"
+        continue
+    fi
+
+    log "running script: $file"
+
+    if [[ "$dry_run" == "0" ]]; then
+        "$file"
+    fi
+done <<< "$installer_files"

@@ -1,6 +1,11 @@
-[user]
-	name = prafitradimas
-	email = prftrdms@gmail.com
+[includeIf "gitdir:~/Work/"]
+	path=~/Work/.gitconfig
+
+[IncludeIf "gitdir:~/Personal/"]
+	path=~/Personal/.gitconfig
+
+[include]
+	path=~/Personal/.gitconfig
 
 [core]
 	editor = vim
@@ -10,6 +15,25 @@
 	autoSetupRemote = true
 [pull]
 	rebase = true
-[credential]
-	credentialStore = gpg
-	gitHubAuthModes = browser
+[color]
+	ui = auto
+[alias]
+	# git add
+	a = add --all
+	#git add -i
+	ai = add -i
+	# git commit
+	c = commit 
+	# git commit -m
+	cm = commit -m 
+	# git clone
+	cl = clone 
+	# git clone --depth 1
+	cld = clone --depth 1 
+	# git pull --rebase origin
+	pro = pull --rebase origin 
+	# git push origin
+	po = push origin 
+
+[url "git@github.com:"]
+	insteadOf = https://github.com/

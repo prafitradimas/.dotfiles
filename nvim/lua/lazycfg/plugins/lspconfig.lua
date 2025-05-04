@@ -1,3 +1,7 @@
+local LazyVim = require('lazyvim.util')
+
+vim.filetype.add({ extension = { templ = 'templ' } })
+
 return {
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
@@ -113,11 +117,8 @@ return {
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        tsserver = {
-          enabled = false,
-          -- cmd = { 'typescript-language-server', '--stdio' },
-        },
         vtsls = {
+          capabilities = capabilities,
           filetypes = { 'typescript', 'typescriptreact', 'typescript.tsx', 'javascript', 'javascriptreact', 'javascript.jsx' },
           settings = {
             complete_function_calls = true,
@@ -132,7 +133,9 @@ return {
             },
             typescript = {
               updateImportsOnFileMove = { enabled = 'always' },
-              suggest = {},
+              suggest = {
+                completeFunctionCalls = true,
+              },
               inlayHints = {
                 enumMemberValues = { enabled = true },
                 functionLikeReturnType = { enabled = true },
@@ -177,6 +180,19 @@ return {
             usePlaceholders = true,
           },
         },
+        templ = {
+          filetypes = { 'templ' },
+        },
+        html = {
+          filetypes = { 'html', 'templ' },
+        },
+        tailwindcss = {
+          filetypes = { 'templ', 'javascript', 'typescript', 'react' },
+          init_options = { userLanguages = { templ = 'html' } },
+        },
+        pyright = {
+          filetypes = { 'python' },
+        },
         lua_ls = {
           -- cmd = {...},
           -- filetypes = { ...},
@@ -219,12 +235,16 @@ return {
         'gomodifytags',
         'impl',
         'delve',
+        'templ',
 
-        -- php
-        'intelephense',
-        'blade-formatter',
-        'phpstan',
-        'pint',
+        -- python
+        'pyright',
+        'black',
+        'ruff',
+        'mypy',
+
+        'html',
+        'tailwindcss',
       })
       require('mason-tool-installer').setup({ ensure_installed = ensure_installed })
 
@@ -240,6 +260,98 @@ return {
           end,
         },
       })
+    end,
+  },
+  {
+    'mrcjkb/rustaceanvim',
+    version = vim.fn.has('nvim-0.10.0') == 0 and '^4' or false,
+    ft = { 'rust' },
+    dependencies = {
+      {
+        'Saecki/crates.nvim',
+        event = { 'BufRead Cargo.toml' },
+        opts = {
+          completion = {
+            crates = {
+              enabled = true,
+            },
+          },
+          lsp = {
+            enabled = true,
+            actions = true,
+            completion = true,
+            hover = true,
+          },
+        },
+      },
+    },
+    opts = {
+      server = {
+        on_attach = function(_, bufnr)
+          vim.keymap.set('n', '<leader>cR', function()
+            vim.cmd.RustLsp('codeAction')
+          end, { desc = 'Code Action', buffer = bufnr })
+          vim.keymap.set('n', '<leader>dr', function()
+            vim.cmd.RustLsp('debuggables')
+          end, { desc = 'Rust Debuggables', buffer = bufnr })
+        end,
+        default_settings = {
+          -- rust-analyzer language server configuration
+          ['rust-analyzer'] = {
+            cargo = {
+              allFeatures = true,
+              loadOutDirsFromCheck = true,
+              buildScripts = {
+                enable = true,
+              },
+            },
+            checkOnSave = true,
+            -- Enable diagnostics if using rust-analyzer
+            diagnostics = {
+              enable = true,
+            },
+            procMacro = {
+              enable = true,
+              ignored = {
+                ['async-trait'] = { 'async_trait' },
+                ['napi-derive'] = { 'napi' },
+                ['async-recursion'] = { 'async_recursion' },
+              },
+            },
+            files = {
+              excludeDirs = {
+                '.direnv',
+                '.git',
+                '.github',
+                '.gitlab',
+                'bin',
+                'node_modules',
+                'target',
+                'venv',
+                '.venv',
+              },
+            },
+          },
+        },
+      },
+    },
+    config = function(_, opts)
+      if LazyVim.has('mason.nvim') then
+        local package_path = require('mason-registry').get_package('codelldb'):get_install_path()
+        local codelldb = package_path .. '/extension/adapter/codelldb'
+        local library_path = package_path .. '/extension/lldb/lib/liblldb.dylib'
+        local uname = io.popen('uname'):read('*l')
+        if uname == 'Linux' then
+          library_path = package_path .. '/extension/lldb/lib/liblldb.so'
+        end
+        opts.dap = {
+          adapter = require('rustaceanvim.config').get_codelldb_adapter(codelldb, library_path),
+        }
+      end
+      vim.g.rustaceanvim = vim.tbl_deep_extend('keep', vim.g.rustaceanvim or {}, opts or {})
+      if vim.fn.executable('rust-analyzer') == 0 then
+        LazyVim.error('**rust-analyzer** not found in PATH, please install it.\nhttps://rust-analyzer.github.io/', { title = 'rustaceanvim' })
+      end
     end,
   },
 }

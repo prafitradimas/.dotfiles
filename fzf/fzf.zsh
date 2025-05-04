@@ -1,5 +1,5 @@
 
-export FZF_DEFAULT_COMMAND="fdfind --type f" # Override fzf default command
+export FZF_DEFAULT_COMMAND="fdfind --type file" # Override fzf default command
 # Preview file content using bat (https://github.com/sharkdp/bat)
 export FZF_DEFAULT_OPTS="--preview 'batcat --color=always {}'"
 
