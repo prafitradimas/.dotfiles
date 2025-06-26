@@ -26,6 +26,10 @@ if [ -x "$(command -v flatpak)" ]; then
     export PATH=$PATH:$HOME/.local/share/flatpak/exports/bin
 fi
 
+if [ -d "$HOME/.encore/bin" ]; then
+    export PATH=$PATH:$HOME/.encore/bin
+fi
+
 # if [ -d "/opt/kubernetes/bin" ]; then
 #     export PATH="$PATH:/opt/kubernetes/bin"
 # fi
