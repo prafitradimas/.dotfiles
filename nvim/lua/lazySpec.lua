@@ -38,6 +38,7 @@ return {
     "neovim/nvim-lspconfig",
     dependencies = {
       "saghen/blink.cmp",
+      "ibhagwan/fzf-lua",
 
       -- Automatically install LSPs and related tools to stdpath for Neovim
       { "williamboman/mason.nvim", config = true }, -- NOTE: Must be loaded before dependants
@@ -98,7 +99,9 @@ return {
         "vimdoc",
         "go",
         "rust",
+        "ron",
         "php",
+        "dockerfile",
       },
       auto_install = true,
       highlight = {
@@ -212,8 +215,30 @@ return {
         desc = "[F]or[M]at buffer",
       },
     },
-    --- @class ConformOpts
-    opts = {},
     config = get_config("conform"),
+  },
+  {
+    "mrcjkb/rustaceanvim",
+    version = vim.fn.has("nvim-0.10.0") == 0 and "^4" or false,
+    ft = { "rust" },
+    dependencies = {
+      {
+        "Saecki/crates.nvim",
+        event = { "BufRead Cargo.toml" },
+        opts = {
+          completion = {
+            crates = {
+              enabled = true,
+            },
+          },
+          lsp = {
+            enabled = true,
+            actions = true,
+            completion = true,
+            hover = true,
+          },
+        },
+      },
+    },
   },
 }

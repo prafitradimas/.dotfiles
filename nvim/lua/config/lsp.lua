@@ -10,10 +10,6 @@ function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
   return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
 
-local function on_attach(client)
-  client.server_capabilities.document_formatting = false
-end
-
 local servers = {
   vtsls = {
     capabilities = capabilities,
@@ -91,6 +87,12 @@ local servers = {
       usePlaceholders = true,
     },
   },
+  dockerls = {
+    capabilities = capabilities,
+  },
+  docker_compose_language_service = {
+    capabilities = capabilities,
+  },
   templ = {
     capabilities = capabilities,
     filetypes = { "templ" },
@@ -117,6 +119,24 @@ local servers = {
         },
         -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
         -- diagnostics = { disable = { 'missing-fields' } },
+      },
+    },
+  },
+  jsonls = {
+    -- lazy-load schemastore when needed
+    on_new_config = function(new_config)
+      new_config.settings.json.schemas = new_config.settings.json.schemas or {}
+      vim.list_extend(
+        new_config.settings.json.schemas,
+        require("schemastore").json.schemas()
+      )
+    end,
+    settings = {
+      json = {
+        format = {
+          enable = true,
+        },
+        validate = { enable = true },
       },
     },
   },
@@ -175,7 +195,6 @@ require("mason-lspconfig").setup({
         capabilities,
         server.capabilities or {}
       )
-      server.on_attach = on_attach
       lspconfig[server_name].setup(server)
     end,
   },

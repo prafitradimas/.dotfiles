@@ -47,7 +47,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
     -- Execute a code action, usually your cursor needs to be on top of an error
     -- or a suggestion from your LSP for this to activate.
-    map("<leader>ca", fzf.ls_code_actions, "[C]ode [A]ction")
+    map("<leader>ca", fzf.lsp_code_actions, "[C]ode [A]ction")
 
     -- Opens a popup that displays documentation about the word under your cursor
     --  See `:help K` for why this keymap.

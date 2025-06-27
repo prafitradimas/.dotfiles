@@ -28,13 +28,13 @@ vim.keymap.set(
   [["+y]],
   { desc = "Copy to clipboard" }
 ) -- copy
-vim.keymap.set("n", "<leader>p", [["+p]], { desc = "Paste from clipboard" }) -- paste
+vim.keymap.set("n", "<leader>p", '"+p', { desc = "Paste from clipboard" }) -- paste
 
 -- adjust indents
 vim.keymap.set("v", "<", "<gv", { desc = "Shift line left" })
 vim.keymap.set("v", ">", ">gv", { desc = "Shift line right" })
 
 require("keymap.diagnostic")
+require("keymap.fzf")
 require("keymap.lsp")
 require("keymap.harpoon")
-require("keymap.fzf")
