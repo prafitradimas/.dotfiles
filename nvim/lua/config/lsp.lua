@@ -1,5 +1,6 @@
 local lspconfig = require("lspconfig")
-local capabilities = require("blink.cmp").get_lsp_capabilities()
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- local capabilities = require("blink.cmp").get_lsp_capabilities()
 
 -- Give me rounded borders everywhere
 local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
@@ -12,7 +13,6 @@ end
 
 local servers = {
   vtsls = {
-    capabilities = capabilities,
     filetypes = {
       "typescript",
       "typescriptreact",
@@ -50,7 +50,6 @@ local servers = {
   },
   gopls = {
     cmd = { "gopls" },
-    capabilities = capabilities,
     settings = {
       gopls = {
         gofumpt = true,
@@ -87,31 +86,22 @@ local servers = {
       usePlaceholders = true,
     },
   },
-  dockerls = {
-    capabilities = capabilities,
-  },
-  docker_compose_language_service = {
-    capabilities = capabilities,
-  },
+  dockerls = {},
+  docker_compose_language_service = {},
   templ = {
-    capabilities = capabilities,
     filetypes = { "templ" },
   },
   html = {
-    capabilities = capabilities,
     filetypes = { "html", "templ" },
   },
   tailwindcss = {
-    capabilities = capabilities,
     filetypes = { "templ", "javascript", "typescript", "react" },
     init_options = { userLanguages = { templ = "html" } },
   },
   pyright = {
-    capabilities = capabilities,
     filetypes = { "python" },
   },
   lua_ls = {
-    capabilities = capabilities,
     settings = {
       Lua = {
         completion = {
@@ -141,7 +131,6 @@ local servers = {
     },
   },
   intelephense = {
-    capabilities = capabilities,
     filetypes = { "php", "blade" },
     settings = {
       intelephense = {
@@ -199,5 +188,3 @@ require("mason-lspconfig").setup({
     end,
   },
 })
-
-require("autocmd.lsp")

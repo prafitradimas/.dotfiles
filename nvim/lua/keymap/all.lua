@@ -34,7 +34,17 @@ vim.keymap.set("n", "<leader>p", '"+p', { desc = "Paste from clipboard" }) -- pa
 vim.keymap.set("v", "<", "<gv", { desc = "Shift line left" })
 vim.keymap.set("v", ">", ">gv", { desc = "Shift line right" })
 
+-- Rename the variable under your cursor.
+--  Most Language Servers support renaming across files, etc.
+vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "[R]e[n]ame" })
+
+-- Opens a popup that displays documentation about the word under your cursor
+--  See `:help K` for why this keymap.
+vim.keymap.set(
+  "n",
+  "K",
+  vim.lsp.buf.hover,
+  { desc = "LSP: Hover Documentation" }
+)
+
 require("keymap.diagnostic")
-require("keymap.fzf")
-require("keymap.lsp")
-require("keymap.harpoon")

@@ -29,7 +29,7 @@ require("lazy").setup({
     { "LazyVim/LazyVim" },
     { import = "lazySpec" },
   },
-  change_detection = { notify = false },
+  change_detection = { notify = true },
   --  defaults = {
   --    lazy = false,
   --    version = false,
