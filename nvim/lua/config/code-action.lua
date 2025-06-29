@@ -75,8 +75,8 @@ return {
   },
   config = function(_, opts)
     vim.keymap.set("n", "<leader>ca", function()
-      require("tiny-code-action").code_action()
-    end, { noremap = true, silent = true })
+      require("tiny-code-action").code_action({})
+    end, { noremap = true, silent = true, desc = "[C]ode [A]ction" })
 
     require("tiny-code-action").setup(opts)
   end,

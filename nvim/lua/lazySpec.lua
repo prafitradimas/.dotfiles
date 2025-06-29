@@ -16,12 +16,15 @@ return {
       vim.cmd.hi("Comment gui=none")
     end,
   },
+  require("config.mason"),
   require("config.snacks"),
   require("config.harpoon"),
   require("config.neotree"),
   require("config.treesitter"),
   require("config.code-action"),
+  require("config.which-key"),
   require("config.cmp"),
+  require("config.gitsigns"),
   -- require("config.blink"),
   {
     "nvim-treesitter/nvim-treesitter-context",
@@ -43,8 +46,8 @@ return {
       "saghen/blink.cmp",
 
       -- Automatically install LSPs and related tools to stdpath for Neovim
-      { "williamboman/mason.nvim", config = true }, -- NOTE: Must be loaded before dependants
-      "williamboman/mason-lspconfig.nvim",
+      { "mason-org/mason.nvim", config = true }, -- NOTE: Must be loaded before dependants
+      "mason-org/mason-lspconfig.nvim",
       "WhoIsSethDaniel/mason-tool-installer.nvim",
 
       -- Useful status updates for LSP.
@@ -55,26 +58,6 @@ return {
       { "folke/neodev.nvim", opts = {} },
     },
     config = get_config("lsp"),
-  },
-  {
-    "lewis6991/gitsigns.nvim",
-    opts = {
-      signs = {
-        add = { text = "▎" },
-        change = { text = "▎" },
-        delete = { text = "" },
-        topdelete = { text = "" },
-        changedelete = { text = "▎" },
-        untracked = { text = "▎" },
-      },
-      signs_staged = {
-        add = { text = "▎" },
-        change = { text = "▎" },
-        delete = { text = "" },
-        topdelete = { text = "" },
-        changedelete = { text = "▎" },
-      },
-    },
   },
   { -- Autoformat
     "stevearc/conform.nvim",
