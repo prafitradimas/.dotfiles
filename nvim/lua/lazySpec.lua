@@ -16,6 +16,27 @@ return {
       vim.cmd.hi("Comment gui=none")
     end,
   },
+  {
+    "OXY2DEV/markview.nvim",
+    lazy = false,
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+    },
+
+    -- For `nvim-treesitter` users.
+    priority = 49,
+
+    -- For blink.cmp's completion
+    -- source
+    -- dependencies = {
+    --     "saghen/blink.cmp"
+    -- },
+    opts = {
+      preview = {
+        icon_provider = "devicons",
+      },
+    },
+  },
   require("config.mason"),
   require("config.snacks"),
   require("config.harpoon"),

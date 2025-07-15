@@ -28,6 +28,7 @@ require("conform").setup({
     txt = { "prettierd", "prettier" },
     handlebars = { "prettierd", "prettier" },
     hbs = { "prettierd", "prettier" },
+    sql = { "sql_formatter", "sql-formatter" },
   },
   formatters = {
     stylua = {
